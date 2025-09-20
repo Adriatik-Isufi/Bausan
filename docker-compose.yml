@@ -1,0 +1,27 @@
+services:
+  # Production-like build (serves static files)
+  app:
+    container_name: ${PROJECT_NAME:-bausan-website}-prod
+    build: .
+    ports:
+      - "${PROD_PORT:-8902}:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  # Development with hot reload
+  dev:
+    container_name: ${PROJECT_NAME:-bausan-website}-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "${DEV_PORT:-8903}:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    command: pnpm dev
+    restart: unless-stopped

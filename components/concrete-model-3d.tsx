@@ -12,13 +12,16 @@ function ConcreteWallModel({ scrollY }: { scrollY: number }) {
 
   useFrame((state) => {
     if (meshRef.current) {
-      // Rotate based on scroll position
-      meshRef.current.rotation.y = scrollY * 0.001
-      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.1
-
-      // Scale slightly based on scroll
-      const scale = 1 + Math.sin(scrollY * 0.002) * 0.1
-      meshRef.current.scale.setScalar(scale)
+      // Scroll-driven camera movement effect
+      const scrollProgress = Math.min(scrollY / 1000, 1) // Normalize scroll
+      
+      // Move camera through the wall as user scrolls
+      meshRef.current.rotation.y = scrollProgress * Math.PI * 0.5
+      meshRef.current.position.z = -scrollProgress * 2
+      
+      // Slight breathing animation
+      const breathe = Math.sin(state.clock.elapsedTime * 0.8) * 0.05
+      meshRef.current.scale.setScalar(1 + breathe)
     }
   })
 
@@ -52,14 +55,14 @@ export function ConcreteModel3D() {
   return (
     <div className="w-full h-96 rounded-lg overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
       <Suspense fallback={<LoadingFallback />}>
-        <Canvas camera={{ position: [5, 5, 5], fov: 50 }} className="w-full h-full">
+        <Canvas camera={{ position: [3, 2, 4], fov: 60 }} className="w-full h-full">
           <ambientLight intensity={0.6} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
           <pointLight position={[-10, -10, -5]} intensity={0.5} />
 
           <ConcreteWallModel scrollY={scrollY} />
 
-          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+          <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
 
           <Environment preset="warehouse" />
         </Canvas>

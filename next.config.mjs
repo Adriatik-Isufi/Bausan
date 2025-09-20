@@ -11,8 +11,8 @@ const nextConfig = {
   },
   output: 'export',            // Enable static export
   trailingSlash: true,         // Add trailing slashes to routes
-  basePath: '/Bausan.github.io',  // GitHub Pages subdirectory path
-  assetPrefix: '/Bausan.github.io',  // Prefix for all assets
+  basePath: process.env.NODE_ENV === 'production' ? '/Bausan' : '',  // GitHub Pages subdirectory path
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/Bausan' : '',  // Prefix for all assets
 }
 
 export default nextConfig

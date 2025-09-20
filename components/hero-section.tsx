@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
+import { usePathname } from "next/navigation"
 
 interface HeroSectionProps {
   language: "de" | "en"
@@ -10,6 +11,12 @@ interface HeroSectionProps {
 export function HeroSection({ language }: HeroSectionProps) {
   const heroRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
+  
+  // Get the base path for images
+  const getImagePath = (imagePath: string) => {
+    const basePath = process.env.NODE_ENV === 'production' ? '/Bausan' : ''
+    return `${basePath}${imagePath}`
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,7 +53,7 @@ export function HeroSection({ language }: HeroSectionProps) {
         ref={heroRef}
         className="absolute inset-0 parallax-element"
         style={{
-          backgroundImage: "url(/images/hero-wall.jpg)",
+          backgroundImage: `url(${getImagePath('/images/hero-wall.jpg')})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",

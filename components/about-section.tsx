@@ -1,7 +1,23 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import dynamic from "next/dynamic"
+
+// Temporarily use ConcreteShowcase instead of 3D model due to compatibility issues
 import { ConcreteShowcase } from "./concrete-showcase"
+
+// TODO: Re-enable 3D model once React Three Fiber compatibility is fixed
+// const ConcreteModel3D = dynamic(() => import("./concrete-model-3d").then(mod => ({ default: mod.ConcreteModel3D })), {
+//   ssr: false,
+//   loading: () => (
+//     <div className="w-full h-96 bg-muted rounded-lg flex items-center justify-center">
+//       <div className="text-center">
+//         <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+//         <p className="text-sm text-muted-foreground">3D Modell wird geladen...</p>
+//       </div>
+//     </div>
+//   )
+// })
 
 interface AboutSectionProps {
   language: "de" | "en"

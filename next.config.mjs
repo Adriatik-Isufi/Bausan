@@ -11,8 +11,8 @@ const nextConfig = {
   },
   output: 'export',            // Enable static export
   trailingSlash: true,         // Add trailing slashes to routes
-  // GitHub Pages deployment configuration
-  // Remove basePath and assetPrefix for now to use default GitHub Pages URL
+  basePath: '/Bausan.github.io',  // GitHub Pages subdirectory path
+  assetPrefix: '/Bausan.github.io',  // Prefix for all assets
 }
 
 export default nextConfig

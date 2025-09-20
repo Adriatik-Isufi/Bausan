@@ -11,7 +11,8 @@ const nextConfig = {
   },
   output: 'export',            // Enable static export
   trailingSlash: true,         // Add trailing slashes to routes
-  // Custom domain setup - no basePath needed
+  // GitHub Pages deployment configuration
+  // Remove basePath and assetPrefix for now to use default GitHub Pages URL
 }
 
 export default nextConfig

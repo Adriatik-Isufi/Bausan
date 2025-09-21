@@ -1,100 +1,79 @@
-"use client"
-
-import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { usePathname } from "next/navigation"
+import { ArrowRight, Shield, Award, Clock } from "lucide-react"
 
-interface HeroSectionProps {
-  language: "de" | "en"
-}
-
-export function HeroSection({ language }: HeroSectionProps) {
-  const heroRef = useRef<HTMLDivElement>(null)
-  const textRef = useRef<HTMLDivElement>(null)
-  
-  // Get the base path for images
-  const getImagePath = (imagePath: string) => {
-    const basePath = process.env.NODE_ENV === 'production' ? '/Bausan' : ''
-    return `${basePath}${imagePath}`
-  }
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (heroRef.current && textRef.current) {
-        const scrolled = window.pageYOffset
-        const parallax = scrolled * 0.5
-        const textParallax = scrolled * 0.3
-
-        heroRef.current.style.transform = `translateY(${parallax}px)`
-        textRef.current.style.transform = `translateY(${textParallax}px)`
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const content = {
-    de: {
-      subtitle: "Betonsanierung • Restaurierung • Schutz",
-      button: "Kontakt aufnehmen",
-    },
-    en: {
-      subtitle: "Concrete Repair • Restoration • Protection",
-      button: "Get Started",
-    },
-  }
-
+export function HeroSection() {
   return (
-    <section className="relative h-screen overflow-hidden parallax-container">
-      {/* Background Image with Parallax */}
-      <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/20 to-transparent z-10" />
+    <section className="relative min-h-screen flex items-center justify-center industrial-texture">
+      {/* Background Image */}
       <div
-        ref={heroRef}
-        className="absolute inset-0 parallax-element"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url(${getImagePath('/images/hero-wall.jpg')})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/14.jpg-MRWhSaA2TkWx7GizG3UkcpnDUbLVm2.jpeg')`,
         }}
-      >
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
+      />
 
-      {/* Hero Content */}
-      <div ref={textRef} className="relative z-10 flex items-center justify-center h-full parallax-element">
-        <div className="text-center text-white px-4 max-w-4xl">
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance">
-            BAUSAN
-            <span className="block text-4xl md:text-6xl font-normal mt-2">GmbH</span>
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 text-center text-white">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-balance">
+            Professionelle <span className="text-red-600">Betonsanierung</span> für dauerhafte Lösungen
           </h1>
 
-          <div className="space-y-4 mb-8">
-            {/* Language support for subtitle */}
-            <p className="text-xl md:text-2xl font-light">{content[language].subtitle}</p>
-            <div className="text-lg md:text-xl space-y-2">
-              <p>Schachenstrasse 28, 4653 Obergösgen</p>
-              <p>+41 76 273 08 03 • bausan@gmx.ch</p>
-            </div>
+          <p className="text-xl md:text-2xl mb-8 text-gray-200 text-pretty">
+            Spezialisiert auf Betonreparatur, Gebäudeschutz, Fassadensanierung, Balkonsanierung, Abdichtung und
+            Korrosionsschutz
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Button
+              size="lg"
+              className="text-lg px-8 py-4 bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              Jetzt Beratung anfragen
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20 hover:border-white/50 transition-all duration-300"
+            >
+              Unsere Projekte ansehen
+            </Button>
           </div>
 
-          <Button
-            size="lg"
-            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 text-lg font-semibold"
-            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-          >
-            {/* Language support for button text */}
-            {content[language].button}
-          </Button>
+          {/* Key Features */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-4 hover:bg-white/15 transition-all duration-300">
+              <Shield className="h-8 w-8 text-red-500" />
+              <div className="text-left">
+                <h3 className="font-semibold">25+ Jahre</h3>
+                <p className="text-sm text-gray-300">Erfahrung</p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-4 hover:bg-white/15 transition-all duration-300">
+              <Award className="h-8 w-8 text-red-500" />
+              <div className="text-left">
+                <h3 className="font-semibold">Zertifiziert</h3>
+                <p className="text-sm text-gray-300">Nach DIN Standards</p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-lg p-4 hover:bg-white/15 transition-all duration-300">
+              <Clock className="h-8 w-8 text-red-500" />
+              <div className="text-left">
+                <h3 className="font-semibold">24/7</h3>
+                <p className="text-sm text-gray-300">Notdienst</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
-        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse" />
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>

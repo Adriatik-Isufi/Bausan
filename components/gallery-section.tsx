@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import Image from "next/image"
+import { useAssetPath } from "@/hooks/use-asset-path"
 
 const projects = [
   {
@@ -28,6 +29,7 @@ const projects = [
 
 export function GallerySection() {
   const sectionRef = useRef<HTMLElement>(null)
+  const { getAssetPath } = useAssetPath()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -68,7 +70,7 @@ export function GallerySection() {
             <div key={index} className="gallery-item opacity-0 group cursor-pointer">
               <div className="relative overflow-hidden rounded-lg shadow-lg">
                 <Image
-                  src={project.image || "/placeholder.svg"}
+                  src={getAssetPath(project.image || "/placeholder.svg")}
                   alt={project.title}
                   width={600}
                   height={400}

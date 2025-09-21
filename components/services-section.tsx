@@ -1,8 +1,9 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Hammer, Shield, Wrench, Building } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Hammer, Shield, Building2, Droplets, Flame, Zap, FlaskConical } from "lucide-react"
 
 interface ServicesSectionProps {
   language: "de" | "en"
@@ -10,6 +11,7 @@ interface ServicesSectionProps {
 
 export function ServicesSection({ language }: ServicesSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
+  const [activeService, setActiveService] = useState(0)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -20,7 +22,7 @@ export function ServicesSection({ language }: ServicesSectionProps) {
             cards.forEach((card, index) => {
               setTimeout(() => {
                 card.classList.add("fade-in-up")
-              }, index * 200)
+              }, index * 100)
             })
           }
         })
@@ -35,95 +37,99 @@ export function ServicesSection({ language }: ServicesSectionProps) {
     return () => observer.disconnect()
   }, [])
 
-  const content = {
-    de: {
-      title: "Unsere Leistungen",
-      subtitle:
-        "Umfassende Betonlösungen, die auf Ihre spezifischen Bedürfnisse zugeschnitten sind, von der Reparatur bis zum Schutz und zur Wartung.",
-      services: [
-        {
-          icon: Hammer,
-          title: "Betonsanierung",
-          description:
-            "Professionelle Reparatur beschädigter Betonkonstruktionen, Risse und Verschlechterungen mit fortschrittlichen Materialien und Techniken.",
-        },
-        {
-          icon: Building,
-          title: "Strukturelle Restaurierung",
-          description:
-            "Komplette Restaurierung von Betongebäuden, Brücken und Infrastrukturen zur Wiederherstellung der strukturellen Integrität.",
-        },
-        {
-          icon: Shield,
-          title: "Schutzbeschichtungen",
-          description:
-            "Anwendung spezialisierter Schutzbeschichtungen zur Verhinderung zukünftiger Schäden und Verlängerung der Betonlebensdauer.",
-        },
-        {
-          icon: Wrench,
-          title: "Wartungsdienstleistungen",
-          description:
-            "Regelmäßige Wartungsprogramme, um Ihre Betonkonstruktionen das ganze Jahr über in optimalem Zustand zu halten.",
-        },
-      ],
+  const services = [
+    {
+      icon: Hammer,
+      title: "Bauwerkinstandsetzung",
+      description:
+        "Für die Reparatur von Schäden an bestehenden Bauwerken kommen verschiedene Schutz- und Sanierungstechniken zum Einsatz. Das Hauptziel der Sanierung besteht darin, die Ursachen der Schäden zu beseitigen, den Fortschritt der Schädigung zu verlangsamen oder ganz zu stoppen und die Tragwerksstrukturen zu schützen. Darüber hinaus wird die Verstärkung von Bauteilen vorgenommen, um langfristige Schäden zu verhindern und bestehende Schäden nachhaltig zu beheben. Während kleinere Schäden in der Regel mit Mörtel ausgebessert werden, werden bei größeren Flächen, wie etwa Brückenplatten, fließfähige Materialien wie Beton oder Vergussmörtel verwendet. Für großflächige Objekte wird häufig die Spritztechnik angewendet.",
     },
-    en: {
-      title: "Our Services",
-      subtitle:
-        "Comprehensive concrete solutions tailored to meet your specific needs, from repair to protection and maintenance.",
-      services: [
-        {
-          icon: Hammer,
-          title: "Concrete Repair",
-          description:
-            "Professional repair of damaged concrete structures, cracks, and deterioration using advanced materials and techniques.",
-        },
-        {
-          icon: Building,
-          title: "Structural Restoration",
-          description:
-            "Complete restoration of concrete buildings, bridges, and infrastructure to restore structural integrity.",
-        },
-        {
-          icon: Shield,
-          title: "Protective Coatings",
-          description:
-            "Application of specialized protective coatings to prevent future damage and extend concrete lifespan.",
-        },
-        {
-          icon: Wrench,
-          title: "Maintenance Services",
-          description: "Regular maintenance programs to keep your concrete structures in optimal condition year-round.",
-        },
-      ],
+    {
+      icon: Shield,
+      title: "Bautenschutz und Betonkosmetik",
+      description:
+        "Zum Bautenschutz und zur Betonkosmetik zählen Bereiche wie Beschichtungen, Oberflächenschutzsysteme, Antigraffiti-Behandlungen und Bodenbelagstechniken. Beschichtungen und Oberflächenschutzsysteme werden aufgetragen, um beispielsweise Stahlbeton vor äußeren Einflüssen zu schützen und so die Haltbarkeit zu verbessern. Dabei kommen Techniken wie Imprägnierungen und Beschichtungen zum Einsatz, die sowohl die Porosität der Oberfläche verringern als auch die Struktur festigen, indem Poren und Kapillaren teilweise oder vollständig verschlossen werden. Selbst hohe ästhetische Ansprüche können durch unsere Fachkräfte nahezu immer durch Spachtelungen und Retuschen erfüllt werden.",
     },
-  }
+    {
+      icon: Building2,
+      title: "Tragwerkverstärkung",
+      description:
+        "Die Ertüchtigung oder Verstärkung eines Bauwerks wird stets von einem Bauingenieur festgelegt. Um die notwendige Verstärkung zu erzielen, stehen verschiedene Verfahren zur Verfügung. BETOSAN kann in diesem Zusammenhang beratend zur Seite stehen und die Durchführung der Maßnahmen übernehmen. Die Erhöhung oder Wiederherstellung der statischen Tragfähigkeit erfolgt durch den Einsatz von CFK- und Stahllamellen, Kohlenstoff- und Glasfasergewebe, Vorspannverfahren (Memory-Steel) sowie speziellen Bewehrungen bei Problemen mit Durchstanzungen. Die Wahl der geeigneten Methode hängt von verschiedenen Projektfaktoren wie Kosten, Baustellenbedingungen und -umgebung ab.",
+    },
+    {
+      icon: Droplets,
+      title: "Abdichtung",
+      description:
+        "Um strukturelle Schäden durch Feuchtigkeitseintritt in Bauwerke zu verhindern, werden diverse Techniken und Materialien zur Bauabdichtung verwendet. Dabei kommen spezielle Verfahren wie Injektionen, Vergelungen, Fugenabdichtungen, Flüssigkunststoffabdichtungen und Flächenabdichtungen zum Einsatz. Die Wahl des geeigneten Verfahrens hängt vom Typ des Bauwerks, dem Schadensbild, den klimatischen Bedingungen sowie den spezifischen Anforderungen ab. Daher empfehlen wir, unsere fachliche Beratung und langjährige Erfahrung in Anspruch zu nehmen.",
+    },
+    {
+      icon: Flame,
+      title: "Brandschutz",
+      description:
+        "Beim Brandschutz überlassen wir von der BETOSAN AG nichts dem Zufall. Besonders bei der Betoninstandsetzung besteht oft Bedarf an Brandschutzbeschichtungen, vor allem bei unzureichender Betondeckung der Bewehrung. Wir bieten die fachgerechte Anwendung von Schutzbeschichtungen und die Verkleidung von Tragwerken an. Zudem sichern wir Versorgungsleitungen, die durch Decken und Wände führen, mit Brandabschottungen feuerbeständig und rauchgasdicht ab. Brennbare Leitungen werden zusätzlich mit Brandschutzmanschetten geschützt, die im Brandfall als Barriere wirken.",
+    },
+    {
+      icon: Zap,
+      title: "Stahl-Korrosionsschutz",
+      description:
+        "Stahl ist ein vielseitiger und kostengünstiger Baustoff, hat jedoch einen Nachteil: Er korrodiert in Wasser, Erde und der Atmosphäre. Um dies zu verhindern, sind wirksame Beschichtungssysteme unerlässlich. Korrosionsschutz für Stahl bedeutet in erster Linie den Erhalt von Wert und Sicherheit. Ohne eine funktionierende Schutzbeschichtung altern viele Stahlbauten schnell. Dies beeinträchtigt nicht nur das Aussehen, sondern kann auch die Statik gefährden, im schlimmsten Fall droht der Abriss. Die Anwendung von Stahl-Korrosionsschutz erfordert geprüfte Beschichtungssysteme und vor allem die Fachkompetenz des ausführenden Unternehmens – eine echte Vertrauenssache!",
+    },
+    {
+      icon: FlaskConical,
+      title: "Säureschutzbau",
+      description:
+        "Aggressive Medien wie pflanzliche und tierische Öle, Fette, Weichmacher, Säuren, Laugen, Lösungsmittel und Salzlösungen führen in der Industrie häufig zu Schäden an Beton, Stahlbeton und Stahl. Daher ist der Einsatz von Säureschutzbeschichtungen, also schwerem Korrosionsschutz, unerlässlich. Strenge gesetzliche Vorschriften zielen vor allem auf den Umweltschutz ab. Unsere Spezialität im Säureschutzbau ist die gewebeverstärkte, ableitfähige Vinylester-Beschichtung, die selbst hohen Belastungen standhält. Bei zusätzlicher mechanischer Belastung kommen säurefeste Platten zum Einsatz.",
+    },
+  ]
 
   return (
     <section ref={sectionRef} className="py-20 px-4 bg-muted/30">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">{content[language].title}</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{content[language].subtitle}</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">Unsere Fachbereiche</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Spezialisierte Lösungen für Bauwerkinstandsetzung, Bautenschutz und industrielle Anwendungen mit höchsten
+            Qualitätsstandards.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {content[language].services.map((service, index) => (
-            <Card
-              key={index}
-              className="service-card opacity-0 hover:shadow-lg transition-all duration-300 hover:-translate-y-2"
-            >
-              <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 mx-auto mb-4 bg-secondary/10 rounded-full flex items-center justify-center">
-                  <service.icon className="w-8 h-8 text-secondary" />
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Service Navigation */}
+          <div className="lg:col-span-1">
+            <div className="space-y-2">
+              {services.map((service, index) => (
+                <Button
+                  key={index}
+                  variant={activeService === index ? "default" : "ghost"}
+                  className="w-full justify-start text-left h-auto p-4 hover:bg-secondary/80"
+                  onClick={() => setActiveService(index)}
+                >
+                  <service.icon className="w-5 h-5 mr-3 flex-shrink-0" />
+                  <span className="font-medium">{service.title}</span>
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* Service Content */}
+          <div className="lg:col-span-2">
+            <Card className="service-card opacity-0 min-h-[400px]">
+              <CardHeader>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                    {(() => {
+                      const IconComponent = services[activeService].icon
+                      return <IconComponent className="w-6 h-6 text-primary" />
+                    })()}
+                  </div>
+                  <CardTitle className="text-2xl font-bold">{services[activeService].title}</CardTitle>
                 </div>
-                <CardTitle className="text-xl font-bold">{service.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground text-center leading-relaxed">{service.description}</p>
+                <p className="text-muted-foreground leading-relaxed text-lg">{services[activeService].description}</p>
               </CardContent>
             </Card>
-          ))}
+          </div>
         </div>
       </div>
     </section>

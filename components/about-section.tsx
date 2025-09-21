@@ -3,21 +3,18 @@
 import { useEffect, useRef } from "react"
 import dynamic from "next/dynamic"
 
-// Temporarily use ConcreteShowcase instead of 3D model due to compatibility issues
-import { ConcreteShowcase } from "./concrete-showcase"
-
-// TODO: Re-enable 3D model once React Three Fiber compatibility is fixed
-// const ConcreteModel3D = dynamic(() => import("./concrete-model-3d").then(mod => ({ default: mod.ConcreteModel3D })), {
-//   ssr: false,
-//   loading: () => (
-//     <div className="w-full h-96 bg-muted rounded-lg flex items-center justify-center">
-//       <div className="text-center">
-//         <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-2" />
-//         <p className="text-sm text-muted-foreground">3D Modell wird geladen...</p>
-//       </div>
-//     </div>
-//   )
-// })
+// Dynamically import the 3D component for static export compatibility
+const ConcreteWall3D = dynamic(() => import("./concrete-wall-3d").then(mod => ({ default: mod.ConcreteWall3D })), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-96 bg-muted rounded-lg flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+        <p className="text-sm text-muted-foreground">3D Betonwand wird geladen...</p>
+      </div>
+    </div>
+  )
+})
 
 interface AboutSectionProps {
   language: "de" | "en"
@@ -72,6 +69,10 @@ export function AboutSection({ language }: AboutSectionProps) {
     <section ref={sectionRef} className="py-20 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="relative overflow-visible" style={{ minHeight: '700px', width: '100%' }}>
+            <ConcreteWall3D />
+          </div>
+
           <div className="space-y-6">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground">{content[language].title}</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">{content[language].paragraph1}</p>
@@ -88,10 +89,6 @@ export function AboutSection({ language }: AboutSectionProps) {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="relative">
-            <ConcreteShowcase />
           </div>
         </div>
       </div>

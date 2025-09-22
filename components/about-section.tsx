@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react"
 import dynamic from "next/dynamic"
 
 // Dynamically import the 3D component for static export compatibility
-const ConcreteWall3D = dynamic(() => import("./concrete-wall-3d").then(mod => ({ default: mod.ConcreteWall3D })), {
+const ConcreteWall3D = dynamic(() => import("./concrete-wall-3d").then((mod) => ({ default: mod.ConcreteWall3D })), {
   ssr: false,
   loading: () => (
     <div className="w-full h-96 bg-muted rounded-lg flex items-center justify-center">
@@ -13,7 +13,7 @@ const ConcreteWall3D = dynamic(() => import("./concrete-wall-3d").then(mod => ({
         <p className="text-sm text-muted-foreground">3D Betonwand wird geladen...</p>
       </div>
     </div>
-  )
+  ),
 })
 
 interface AboutSectionProps {
@@ -66,10 +66,10 @@ export function AboutSection({ language }: AboutSectionProps) {
   }
 
   return (
-    <section ref={sectionRef} className="py-20 px-4 bg-background">
+    <section ref={sectionRef} className="py-4 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="relative overflow-visible" style={{ minHeight: '700px', width: '100%' }}>
+          <div className="relative overflow-visible" style={{ minHeight: "700px", width: "100%" }}>
             <ConcreteWall3D />
           </div>
 

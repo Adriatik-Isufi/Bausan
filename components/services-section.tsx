@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Hammer, Shield, Building2, Droplets, Flame, Zap, FlaskConical } from "lucide-react"
+import { Hammer, Shield, Building2, Droplets, Flame, Zap, FlaskConical, ChevronDown } from "lucide-react"
 
 interface ServicesSectionProps {
   language: "de" | "en"
@@ -12,6 +12,7 @@ interface ServicesSectionProps {
 export function ServicesSection({ language }: ServicesSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const [activeService, setActiveService] = useState(0)
+  const [expandedServices, setExpandedServices] = useState<number[]>([0])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -82,6 +83,10 @@ export function ServicesSection({ language }: ServicesSectionProps) {
     },
   ]
 
+  const toggleServiceExpansion = (index: number) => {
+    setExpandedServices((prev) => (prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]))
+  }
+
   return (
     <section ref={sectionRef} className="py-20 px-4 bg-muted/30">
       <div className="max-w-6xl mx-auto">
@@ -93,7 +98,34 @@ export function ServicesSection({ language }: ServicesSectionProps) {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="lg:hidden space-y-4">
+          {services.map((service, index) => (
+            <Card key={index} className="service-card opacity-0">
+              <CardHeader className="cursor-pointer" onClick={() => toggleServiceExpansion(index)}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                      <service.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-lg font-bold">{service.title}</CardTitle>
+                  </div>
+                  <ChevronDown
+                    className={`w-5 h-5 text-muted-foreground transition-transform duration-200 ${
+                      expandedServices.includes(index) ? "rotate-180" : ""
+                    }`}
+                  />
+                </div>
+              </CardHeader>
+              {expandedServices.includes(index) && (
+                <CardContent className="pt-0">
+                  <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+                </CardContent>
+              )}
+            </Card>
+          ))}
+        </div>
+
+        <div className="hidden lg:grid lg:grid-cols-3 gap-8">
           {/* Service Navigation */}
           <div className="lg:col-span-1">
             <div className="space-y-2">
@@ -113,22 +145,24 @@ export function ServicesSection({ language }: ServicesSectionProps) {
 
           {/* Service Content */}
           <div className="lg:col-span-2">
-            <Card className="service-card opacity-0 min-h-[400px]">
-              <CardHeader>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                    {(() => {
-                      const IconComponent = services[activeService].icon
-                      return <IconComponent className="w-6 h-6 text-primary" />
-                    })()}
+            <div className="lg:sticky lg:top-24">
+              <Card className="service-card opacity-0 min-h-[400px]">
+                <CardHeader>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                      {(() => {
+                        const IconComponent = services[activeService].icon
+                        return <IconComponent className="w-6 h-6 text-primary" />
+                      })()}
+                    </div>
+                    <CardTitle className="text-2xl font-bold">{services[activeService].title}</CardTitle>
                   </div>
-                  <CardTitle className="text-2xl font-bold">{services[activeService].title}</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed text-lg">{services[activeService].description}</p>
-              </CardContent>
-            </Card>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed text-lg">{services[activeService].description}</p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>

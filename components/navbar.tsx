@@ -55,7 +55,7 @@ export function Navbar({ language, onLanguageChange }: NavbarProps) {
           isScrolled ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-transparent"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 py-4 relative flex items-center">
+        <div className="max-w-6xl mx-auto px-4 py-6 relative flex items-center">
           {/* Logo - positioned absolutely on the left */}
           <div className="absolute left-4 flex items-center space-x-3">
             <div className="w-10 h-10 bg-red-600 rounded-sm flex items-center justify-center">

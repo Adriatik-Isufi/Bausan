@@ -34,7 +34,7 @@ export default function Home() {
         <ContactSection language={language} />
       </div>
 
-      <Footer />
+      <Footer language={language} />
     </main>
   )
 }

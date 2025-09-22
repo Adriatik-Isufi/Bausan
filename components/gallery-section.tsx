@@ -4,30 +4,65 @@ import { useEffect, useRef } from "react"
 import Image from "next/image"
 import { useAssetPath } from "@/hooks/use-asset-path"
 
-const projects = [
-  {
-    image: "/images/construction-work.jpg",
-    title: "Structural Repair",
-    description: "Complete ceiling restoration with reinforcement",
-  },
-  {
-    image: "/images/balcony-finish.jpg",
-    title: "Balcony Restoration",
-    description: "Modern concrete balcony with protective coating",
-  },
-  {
-    image: "/images/finished-garden.jpg",
-    title: "Retaining Walls",
-    description: "Decorative concrete walls with landscaping",
-  },
-  {
-    image: "/images/pool-area.jpg",
-    title: "Pool Restoration",
-    description: "Pool coping repair and protective treatment",
-  },
-]
+interface GallerySectionProps {
+  language: "de" | "en"
+}
 
-export function GallerySection() {
+export function GallerySection({ language }: GallerySectionProps) {
+  const content = {
+    de: {
+      title: "Unsere Arbeiten",
+      subtitle: "Entdecken Sie unser Portfolio erfolgreicher Betonsanierungs- und Restaurierungsprojekte in der ganzen Schweiz.",
+      projects: [
+        {
+          image: "/images/construction-work.jpg",
+          title: "Strukturreparatur",
+          description: "Komplette Deckensanierung mit Verstärkung",
+        },
+        {
+          image: "/images/balcony-finish.jpg",
+          title: "Balkonsanierung",
+          description: "Moderner Betonbalkon mit Schutzbeschichtung",
+        },
+        {
+          image: "/images/finished-garden.jpg",
+          title: "Stützmauern",
+          description: "Dekorative Betonwände mit Landschaftsgestaltung",
+        },
+        {
+          image: "/images/pool-area.jpg",
+          title: "Pool-Sanierung",
+          description: "Pool-Randsteinreparatur und Schutzbehandlung",
+        },
+      ]
+    },
+    en: {
+      title: "Our Work",
+      subtitle: "Explore our portfolio of successful concrete repair and restoration projects across Switzerland.",
+      projects: [
+        {
+          image: "/images/construction-work.jpg",
+          title: "Structural Repair",
+          description: "Complete ceiling restoration with reinforcement",
+        },
+        {
+          image: "/images/balcony-finish.jpg",
+          title: "Balcony Restoration",
+          description: "Modern concrete balcony with protective coating",
+        },
+        {
+          image: "/images/finished-garden.jpg",
+          title: "Retaining Walls",
+          description: "Decorative concrete walls with landscaping",
+        },
+        {
+          image: "/images/pool-area.jpg",
+          title: "Pool Restoration",
+          description: "Pool coping repair and protective treatment",
+        },
+      ]
+    }
+  }
   const sectionRef = useRef<HTMLElement>(null)
   const { getAssetPath } = useAssetPath()
 
@@ -59,14 +94,14 @@ export function GallerySection() {
     <section ref={sectionRef} className="py-20 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">Our Work</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">{content[language].title}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Explore our portfolio of successful concrete repair and restoration projects across Switzerland.
+            {content[language].subtitle}
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
+          {content[language].projects.map((project, index) => (
             <div key={index} className="gallery-item opacity-0 group cursor-pointer">
               <div className="relative overflow-hidden rounded-lg shadow-lg">
                 <Image

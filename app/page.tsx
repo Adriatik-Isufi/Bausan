@@ -29,7 +29,9 @@ export default function Home() {
       <div id="gallery">
         <GallerySection language={language} />
       </div>
-      <CertificatesSection language={language} />
+      <div id="certificates">
+        <CertificatesSection language={language} />
+      </div>
       <div id="contact">
         <ContactSection language={language} />
       </div>

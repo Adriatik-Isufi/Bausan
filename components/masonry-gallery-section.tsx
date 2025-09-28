@@ -6,12 +6,15 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useAssetPath } from "@/hooks/use-asset-path"
 
 interface MasonryGallerySectionProps {
   language: "de" | "en"
 }
 
 export function MasonryGallerySection({ language }: MasonryGallerySectionProps) {
+  const { getAssetPath } = useAssetPath()
+  
   const content = {
     de: {
       title: "Galerie Beschreibung",
@@ -33,21 +36,21 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
 
   // Array of images with different aspect ratios for masonry effect
   const images = [
-    { src: "/images/construction-work.jpg", height: "h-64" },
-    { src: "/images/damaged-concrete.jpg", height: "h-48" },
-    { src: "/images/finished-garden.jpg", height: "h-48" },
-    { src: "/images/ceiling-repair.jpg", height: "h-80" },
-    { src: "/images/balcony-finish.jpg", height: "h-56" },
-    { src: "/images/modern-wall.jpg", height: "h-52" },
-    { src: "/images/pool-area.jpg", height: "h-52" },
-    { src: "/images/hero-wall.jpg", height: "h-72" },
-    { src: "/images/construction-work.jpg", height: "h-48" },
-    { src: "/images/damaged-concrete.jpg", height: "h-60" },
-    { src: "/images/finished-garden.jpg", height: "h-60" },
-    { src: "/images/ceiling-repair.jpg", height: "h-56" },
-    { src: "/images/balcony-finish.jpg", height: "h-64" },
-    { src: "/images/modern-wall.jpg", height: "h-60" },
-    { src: "/images/pool-area.jpg", height: "h-60" },
+    { src: getAssetPath("/images/construction-work.jpg"), height: "h-64" },
+    { src: getAssetPath("/images/damaged-concrete.jpg"), height: "h-48" },
+    { src: getAssetPath("/images/finished-garden.jpg"), height: "h-48" },
+    { src: getAssetPath("/images/ceiling-repair.jpg"), height: "h-80" },
+    { src: getAssetPath("/images/balcony-finish.jpg"), height: "h-56" },
+    { src: getAssetPath("/images/modern-wall.jpg"), height: "h-52" },
+    { src: getAssetPath("/images/pool-area.jpg"), height: "h-52" },
+    { src: getAssetPath("/images/hero-wall.jpg"), height: "h-72" },
+    { src: getAssetPath("/images/construction-work.jpg"), height: "h-48" },
+    { src: getAssetPath("/images/damaged-concrete.jpg"), height: "h-60" },
+    { src: getAssetPath("/images/finished-garden.jpg"), height: "h-60" },
+    { src: getAssetPath("/images/ceiling-repair.jpg"), height: "h-56" },
+    { src: getAssetPath("/images/balcony-finish.jpg"), height: "h-64" },
+    { src: getAssetPath("/images/modern-wall.jpg"), height: "h-60" },
+    { src: getAssetPath("/images/pool-area.jpg"), height: "h-60" },
   ]
 
   useEffect(() => {
@@ -193,7 +196,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
                   onClick={() => openModal(index)}
                 >
                   <Image
-                    src={image.src || "/placeholder.svg"}
+                    src={image.src || getAssetPath("/placeholder.svg")}
                     alt={`Gallery image col1-${index}`}
                     width={400}
                     height={300}
@@ -212,7 +215,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
                   onClick={() => openModal(index + 3)}
                 >
                   <Image
-                    src={image.src || "/placeholder.svg"}
+                    src={image.src || getAssetPath("/placeholder.svg")}
                     alt={`Gallery image col2-${index}`}
                     width={400}
                     height={300}
@@ -231,7 +234,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
                   onClick={() => openModal(index + 7)}
                 >
                   <Image
-                    src={image.src || "/placeholder.svg"}
+                    src={image.src || getAssetPath("/placeholder.svg")}
                     alt={`Gallery image col3-${index}`}
                     width={400}
                     height={300}
@@ -250,7 +253,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
                   onClick={() => openModal(index + 11)}
                 >
                   <Image
-                    src={image.src || "/placeholder.svg"}
+                    src={image.src || getAssetPath("/placeholder.svg")}
                     alt={`Gallery image col4-${index}`}
                     width={400}
                     height={300}
@@ -275,7 +278,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
                   onClick={() => openModal(0)}
                 >
                   <Image
-                    src={images[0].src || "/placeholder.svg"}
+                    src={images[0].src || getAssetPath("/placeholder.svg")}
                     alt="Gallery image 0"
                     width={400}
                     height={300}
@@ -287,7 +290,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
                   onClick={() => openModal(2)}
                 >
                   <Image
-                    src={images[2].src || "/placeholder.svg"}
+                    src={images[2].src || getAssetPath("/placeholder.svg")}
                     alt="Gallery image 2"
                     width={400}
                     height={300}
@@ -299,7 +302,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
                   onClick={() => openModal(4)}
                 >
                   <Image
-                    src={images[4].src || "/placeholder.svg"}
+                    src={images[4].src || getAssetPath("/placeholder.svg")}
                     alt="Gallery image 4"
                     width={400}
                     height={300}
@@ -311,7 +314,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
                   onClick={() => openModal(6)}
                 >
                   <Image
-                    src={images[6].src || "/placeholder.svg"}
+                    src={images[6].src || getAssetPath("/placeholder.svg")}
                     alt="Gallery image 6"
                     width={400}
                     height={300}
@@ -327,7 +330,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
                   onClick={() => openModal(1)}
                 >
                   <Image
-                    src={images[1].src || "/placeholder.svg"}
+                    src={images[1].src || getAssetPath("/placeholder.svg")}
                     alt="Gallery image 1"
                     width={400}
                     height={300}
@@ -339,7 +342,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
                   onClick={() => openModal(3)}
                 >
                   <Image
-                    src={images[3].src || "/placeholder.svg"}
+                    src={images[3].src || getAssetPath("/placeholder.svg")}
                     alt="Gallery image 3"
                     width={400}
                     height={300}
@@ -351,7 +354,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
                   onClick={() => openModal(5)}
                 >
                   <Image
-                    src={images[5].src || "/placeholder.svg"}
+                    src={images[5].src || getAssetPath("/placeholder.svg")}
                     alt="Gallery image 5"
                     width={400}
                     height={300}
@@ -363,7 +366,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
                   onClick={() => openModal(7)}
                 >
                   <Image
-                    src={images[7].src || "/placeholder.svg"}
+                    src={images[7].src || getAssetPath("/placeholder.svg")}
                     alt="Gallery image 7"
                     width={400}
                     height={300}
@@ -422,7 +425,7 @@ export function MasonryGallerySection({ language }: MasonryGallerySectionProps) 
             {/* Image */}
             <div className="relative w-full h-full flex items-center justify-center">
               <Image
-                src={images[selectedImageIndex]?.src || "/placeholder.svg"}
+                src={images[selectedImageIndex]?.src || getAssetPath("/placeholder.svg")}
                 alt={`Gallery image ${selectedImageIndex}`}
                 width={1200}
                 height={800}

@@ -166,5 +166,6 @@ export function ConcreteWall3D() {
   )
 }
 
-// Preload the model
-useGLTF.preload("/models/cracked+wall+3d+model.glb")
+// Preload the model with correct path
+const modelPath = process.env.NODE_ENV === 'production' ? '/Bausan/models/cracked+wall+3d+model.glb' : '/models/cracked+wall+3d+model.glb'
+useGLTF.preload(modelPath)

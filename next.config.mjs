@@ -8,6 +8,8 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,         // Required for static export
+    loader: 'custom',
+    loaderFile: './imageLoader.mjs',
   },
   output: 'export',            // Enable static export
   trailingSlash: true,         // Add trailing slashes to routes

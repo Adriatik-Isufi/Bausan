@@ -186,7 +186,7 @@ export function ServicesSection({ language }: ServicesSectionProps) {
                 <Button
                   key={index}
                   variant={activeService === index ? "default" : "ghost"}
-                  className="w-full justify-start text-left h-auto p-4 hover:bg-secondary/80"
+                  className="w-full justify-start text-left h-auto p-4 hover:bg-red-50 hover:text-red-700"
                   onClick={() => setActiveService(index)}
                 >
                   <service.icon className="w-5 h-5 mr-3 flex-shrink-0" />

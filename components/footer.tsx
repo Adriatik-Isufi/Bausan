@@ -110,7 +110,15 @@ export function Footer({ language }: FooterProps) {
 
           <div className="border-t border-primary-foreground/20 mt-8 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-primary-foreground/60">{content[language].copyright}</p>
+              <div className="flex flex-col md:flex-row items-center gap-4">
+                <p className="text-primary-foreground/60">{content[language].copyright}</p>
+                <a 
+                  href="/impressum" 
+                  className="text-primary-foreground/60 hover:text-red-400 transition-colors duration-300"
+                >
+                  {language === 'de' ? 'Impressum' : 'Legal Notice'}
+                </a>
+              </div>
               <div className="flex items-center gap-2 text-primary-foreground/60">
                 <span>Built by</span>
                 <a 

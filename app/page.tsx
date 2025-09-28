@@ -5,7 +5,7 @@ import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
 import { AboutSection } from "@/components/about-section"
 import { ServicesSection } from "@/components/services-section"
-import { GallerySection } from "@/components/gallery-section"
+import { MasonryGallerySection } from "@/components/masonry-gallery-section"
 import { CertificatesSection } from "@/components/certificates-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
@@ -27,7 +27,7 @@ export default function Home() {
         <ServicesSection language={language} />
       </div>
       <div id="gallery">
-        <GallerySection language={language} />
+        <MasonryGallerySection language={language} />
       </div>
       <div id="certificates">
         <CertificatesSection language={language} />

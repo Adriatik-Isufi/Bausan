@@ -1,6 +1,6 @@
 export default function imageLoader({ src, width, quality }) {
-  // For GitHub Pages subdirectory deployment
-  const basePath = '/Bausan.github.io'
+  // For GitHub Pages subdirectory deployment - must match next.config.mjs basePath
+  const basePath = process.env.NODE_ENV === 'production' ? '/Bausan' : ''
   
   // If src already includes the basePath, don't add it again
   if (src.startsWith(basePath)) {
